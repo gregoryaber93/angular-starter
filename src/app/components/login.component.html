@@ -1,0 +1,45 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+    <form (ngSubmit)="onSubmit()" *ngIf="!loading; else loadingTemplate">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input
+          id="username"
+          type="text"
+          [(ngModel)]="credentials.username"
+          name="username"
+          required
+          [disabled]="loading"
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="credentials.password"
+          name="password"
+          required
+          [disabled]="loading"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        {{ error }}
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="loading">Login</button>
+      </div>
+    </form>
+
+    <ng-template #loadingTemplate>
+      <div class="loading-message">Logging in...</div>
+    </ng-template>
+  </div>
+</div>
+

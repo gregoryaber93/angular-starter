@@ -1,0 +1,44 @@
+<div class="products-list" *ngIf="products?.length; else noProducts">
+  <ul>
+    <li *ngFor="let product of products">
+      {{ product.id }} {{ product.name }} {{ product.company }}  
+      <button (click)="getProductById(product.id)">Get</button>
+      <button (click)="editProduct(product)">Edit</button>
+      <button (click)="deleteProduct(product.id)">Delete</button>
+    </li>
+  </ul>
+</div>
+<ng-template #noProducts>
+  <p>No products found.</p>
+</ng-template>
+
+<button (click)="showProductAddForm = true">Create</button>
+
+<div *ngIf="showProductAddForm">
+  <h3>Add New Product</h3>
+  <form (ngSubmit)="addProduct()">
+    <label for="name">Name:</label>
+    <input id="name" [(ngModel)]="newProduct.name" name="name" required />
+
+    <label for="company">Company:</label>
+    <input id="company" [(ngModel)]="newProduct.company" name="company" required />
+
+    <button type="submit">Add Product</button>
+    <button type="button" (click)="clearNewProduct(); showProductAddForm = false">Cancel</button>
+  </form>
+</div>
+
+<div *ngIf="showProductEditForm && editingProduct">
+  <h3>Edit Product</h3>
+  <form (ngSubmit)="updateProduct(editingProduct!)">
+    <label for="edit-name">Name:</label>
+    <input id="edit-name" [(ngModel)]="editingProduct.name" name="edit-name" required />
+
+    <label for="edit-company">Company:</label>
+    <input id="edit-company" [(ngModel)]="editingProduct.company" name="edit-company" required />
+
+    <button type="submit">Update Product</button>
+    <button type="button" (click)="showProductEditForm = false; editingProduct = null">Cancel</button>
+  </form>
+
+</div>

@@ -1,0 +1,14 @@
+<div *ngIf="toast" class="toast" [ngClass]="'toast-' + toast.type" (click)="close()">
+  <div class="toast-content">
+    <div class="toast-message">{{ toast.message }}</div>
+    <div *ngIf="toast.data" class="toast-data">
+      <pre>{{ toast.data | json }}</pre>
+    </div>
+  </div>
+  <button class="toast-close" (click)="close()" aria-label="Close">×</button>
+</div>
+
+
+
+
+

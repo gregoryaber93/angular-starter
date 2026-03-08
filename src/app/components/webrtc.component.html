@@ -1,0 +1,92 @@
+<div class="webrtc-container">
+  <h2>WebRTC Video Stream Testing</h2>
+  
+  <div class="controls-section">
+    <h3>Controls</h3>
+    <div *ngIf="errorMessage" class="error-message">
+      <strong>Error:</strong> {{ errorMessage }}
+    </div>
+    <div class="button-group">
+      <button 
+        (click)="startLocalStream()" 
+        [disabled]="isLocalStreamActive"
+        class="btn btn-primary">
+        Start Local Stream
+      </button>
+      <button 
+        (click)="stopLocalStream()" 
+        [disabled]="!isLocalStreamActive"
+        class="btn btn-danger">
+        Stop Local Stream
+      </button>
+      <button 
+        (click)="startRemoteStream()" 
+        [disabled]="isRemoteStreamActive"
+        class="btn btn-success">
+        Start Remote Stream (Test)
+      </button>
+      <button 
+        (click)="stopRemoteStream()" 
+        [disabled]="!isRemoteStreamActive"
+        class="btn btn-danger">
+        Stop Remote Stream
+      </button>
+      <button 
+        (click)="toggleVideo()" 
+        [disabled]="!isLocalStreamActive"
+        class="btn btn-secondary">
+        Toggle Video
+      </button>
+      <button 
+        (click)="toggleAudio()" 
+        [disabled]="!isLocalStreamActive"
+        class="btn btn-secondary">
+        Toggle Audio
+      </button>
+      <button 
+        (click)="initializeConnection()" 
+        class="btn btn-info">
+        Initialize Connection
+      </button>
+      <button 
+        (click)="createOffer()" 
+        [disabled]="!isLocalStreamActive"
+        class="btn btn-warning">
+        Create Offer
+      </button>
+    </div>
+    <div class="status-info">
+      <p><strong>Connection State:</strong> <span class="badge">{{ connectionState }}</span></p>
+      <p><strong>Local Stream:</strong> <span class="badge" [class.active]="isLocalStreamActive">{{ isLocalStreamActive ? 'Active' : 'Inactive' }}</span></p>
+      <p><strong>Remote Stream:</strong> <span class="badge" [class.active]="isRemoteStreamActive">{{ isRemoteStreamActive ? 'Active' : 'Inactive' }}</span></p>
+    </div>
+  </div>
+
+  <div class="video-section">
+    <div class="video-container">
+      <h3>Local Video Stream</h3>
+      <video 
+        #localVideo 
+        autoplay 
+        playsinline 
+        muted
+        class="video-element">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-label">Local Stream (Your Camera)</div>
+    </div>
+
+    <div class="video-container">
+      <h3>Remote Video Stream</h3>
+      <video 
+        #remoteVideo 
+        autoplay 
+        playsinline
+        class="video-element">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-label">Remote Stream (Peer's Camera)</div>
+    </div>
+  </div>
+</div>
+

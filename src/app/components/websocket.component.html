@@ -1,0 +1,102 @@
+<div class="container">
+      <h2>WebSocket API Demo</h2>
+      <p>Real-time bidirectional communication using WebSocket</p>
+
+      <div class="card">
+        <h3>Connection Management</h3>
+        <div>
+          <span class="status" [ngClass]="connectionStatus">
+            {{ connectionStatus.toUpperCase() }}
+          </span>
+        </div>
+        
+        <div style="margin-top: 15px;">
+          <button (click)="connect()" [disabled]="connectionStatus === 'connected'">
+            Connect
+          </button>
+          <button (click)="disconnect()" [disabled]="connectionStatus !== 'connected'">
+            Disconnect
+          </button>
+          <button (click)="reconnect()">
+            Reconnect
+          </button>
+        </div>
+
+        <div class="info" style="margin-top: 10px;">
+          <small>Using echo.websocket.org for demo - messages will be echoed back</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Send Messages</h3>
+        <input 
+          [(ngModel)]="messageText" 
+          placeholder="Enter message"
+          (keyup.enter)="sendMessage()"
+          [disabled]="connectionStatus !== 'connected'">
+        <button 
+          (click)="sendMessage()" 
+          [disabled]="connectionStatus !== 'connected' || !messageText">
+          Send Message
+        </button>
+        
+        <div style="margin-top: 15px;">
+          <h4>Quick Messages:</h4>
+          <button (click)="sendMessage('Hello WebSocket!')" [disabled]="connectionStatus !== 'connected'">
+            Hello
+          </button>
+          <button (click)="sendMessage('Ping')" [disabled]="connectionStatus !== 'connected'">
+            Ping
+          </button>
+          <button (click)="sendJsonMessage()" [disabled]="connectionStatus !== 'connected'">
+            Send JSON
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Received Messages ({{ messages.length }})</h3>
+        <button (click)="clearMessages()">Clear Messages</button>
+        
+        <div *ngIf="messages.length === 0" class="info">
+          No messages received yet. Send a message to see the echo response.
+        </div>
+        
+        <div *ngFor="let msg of messages.slice().reverse()" class="card">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="flex: 1;">
+              <strong>{{ msg.type }}</strong>
+              <pre style="margin-top: 5px;">{{ formatMessage(msg.data) }}</pre>
+            </div>
+            <small>{{ formatTimestamp(msg.timestamp) }}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>WebSocket Features</h3>
+        <ul>
+          <li>✓ Full-duplex bidirectional communication</li>
+          <li>✓ Real-time data transfer</li>
+          <li>✓ Low latency</li>
+          <li>✓ Persistent connection</li>
+          <li>✓ Event-driven architecture</li>
+          <li>✓ Less overhead than HTTP polling</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Use Cases</h3>
+        <ul>
+          <li>Chat applications</li>
+          <li>Live notifications</li>
+          <li>Real-time dashboards</li>
+          <li>Collaborative editing</li>
+          <li>Gaming</li>
+          <li>Live sports updates</li>
+          <li>Stock market tickers</li>
+        </ul>
+      </div>
+
+      <div *ngIf="error" class="error">{{ error }}</div>
+    </div>
