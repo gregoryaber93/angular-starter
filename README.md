@@ -51,7 +51,9 @@ The frontend currently uses these default local endpoints:
 - REST + auth: `http://localhost:3000/`
   - login: `POST /auth/login`
   - products CRUD on `/`
-- WebSocket: `wss://localhost:3002/`
+- WebSocket: `wss://localhost:3002/` (default in code)
+
+If your local WebSocket backend is not configured for TLS, change it to `ws://localhost:3002/` in `src/app/services/websocket.service.ts`.
 
 > If your backend runs on different URLs/ports, update the corresponding service files in `src/app/services/`.
 
